@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Legout:2010aa}
+Legout S (2010) Jacques monod (1910-1976) and his publications in the "annales
+  de l'institut pasteur".
+\newblock Res Microbiol 161: 74-6.
+\bibAnnoteFile{Legout:2010aa}
+
+\bibitem{BEKS14}
+Bezanson J, Edelman A, Karpinski S, Shah VB (2014) {J}ulia: A fresh approach to
+  numerical computing .
+\bibAnnoteFile{BEKS14}
+
+\end{thebibliography}
