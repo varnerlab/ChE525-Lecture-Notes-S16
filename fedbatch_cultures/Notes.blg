@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Notes.aux
+The style file: plos2009.bst
+Database file #1: Notes.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+`journal' is a missing field, not a string, for entry BEKS14
+while executing---line 2643 of file plos2009.bst
+Warning--empty journal in BEKS14
+You've used 3 entries,
+            2441 wiz_defined-function locations,
+            559 strings with 4964 characters,
+and the built_in function-call counts, 1773 in all, are:
+= -- 154
+> -- 28
+< -- 0
++ -- 14
+- -- 7
+* -- 144
+:= -- 223
+add.period$ -- 5
+call.type$ -- 3
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 7
+duplicate$ -- 177
+empty$ -- 181
+format.name$ -- 9
+if$ -- 381
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 26
+newline$ -- 29
+num.names$ -- 3
+pop$ -- 30
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 13
+stack$ -- 0
+substring$ -- 218
+swap$ -- 50
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 15
+width$ -- 4
+write$ -- 44
+(There was 1 error message)
