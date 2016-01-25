@@ -28,7 +28,8 @@ Luedeking R, Piret EL (2000) A kinetic study of the lactic acid fermentation.
 
 \bibitem{BEKS14}
 Bezanson J, Edelman A, Karpinski S, Shah VB (2014) {J}ulia: A fresh approach to
-  numerical computing .
+  numerical computing.
+\newblock http://arxivorg/abs/14111607 .
 \bibAnnoteFile{BEKS14}
 
 \end{thebibliography}

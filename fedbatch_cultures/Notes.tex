@@ -79,7 +79,7 @@
 \begin{document}
 
 %\begin{titlepage}
-{\par\centering\textbf{\Large Analysis of Well-Mixed Fed-Batch Cultures using Unstructured Models}}
+{\par\centering\textbf{\Large Unstructured Models of Well-Mixed Fed-Batch Cultures}}
 \vspace{0.2in}
 {\par \centering \large{Jeffrey D. Varner$^{*}$}}
 \vspace{0.05in}
@@ -100,12 +100,14 @@
 %Thus, to understand the operation of biochemical systems and ultimately to manipulate them for societal gain,
 
 \section*{Introduction}
-Fed-batch cultures are the most complex of the three modes of operating a bioreactor. Fed-batch cultures are dynamic and have volume change.
-Like a continuous culture, feb-batch cultures have an input feed stream into the reactor.
-However, unlike chemostats, there is no outflow from the reaction vessel in a fed-batch reactor.
-Thus, the working volume in the reactor increases over time diluting the contents of the vessel.
+Fed-batch cultures are the most complex of the three operating modes of a bioreactor.
+Feb-batch (or sometimes also called semi-batch) operation is the typical mode that bioreactors are operated in industrially (however there are a few exceptions).
+Feb-batch requires $F_{in}\neq{0}$ and $F_{out} = 0$, where the $F_{in}$ trajectory, called the feeding profile, is adjusted to maximize some target objectives e.g.,
+the final product \emph{titer} (the concentration of the desired product at the end of the run) or the
+\emph{productivity} (the rate of product formation). Thus, fed-batch cultures are complex because they are dynamic and have volume change;
+the working volume in the reactor increases thereby diluting the contents of the vessel.
 In this lecture, we'll develop a mathematical description of
-fed-batch cultures using the general material balances, and then explore how the performance of the fed-batch culture can be optimized.
+fed-batch cultures using the general material balances, and then explore the different modes of product formation in these industrially important cultures.
 
 \subsection*{General model equations for fed-batch cultures.}
 Let's start with the general material balances we derived previously:
@@ -117,8 +119,9 @@ Let's start with the general material balances we derived previously:
 \begin{equation}
 	D_{s} \equiv \frac{F_{s}}{V}\qquad s=1,2,\dots,\mathcal{S}
 \end{equation}The quantity $C_{j}$ denotes the concentration of the jth extracellular metabolite, $V$ denotes the working volume of the culture and $X$ denotes the cellmass.
-In a fed-batch culture, there are in-flows, but no out-flow from the culture vessel, thus $D_{s^{-}} = 0$ where $s^{-}$ denote the set of outflow streams.
-Because there is no out-flow, there is a volume change ($dV/dt > 0$), and all the dilution terms in the material balances are non-negative:
+In a fed-batch culture, there are in-flows, but no out-flow from the culture vessel; thus $D_{s^{-}} = 0$ where $s^{-}$ denote the set of outflow streams.
+Because there is no out-flow, there is a volume change ($dV/dt > 0$), and all the dilution terms in the material balances are non-negative.
+Volume change also requires that we keep the volume balance:
 \begin{eqnarray}\label{eqn-metabolite-batch}
 	\frac{dC_{j}}{dt} &=& \sum_{s~=~1}^{\mathcal{S^{+}}}v_{s}D_{s}C_{j,s} + \left(\sum_{r~=~1}^{\mathcal{R}}\sigma_{jr}\hat{r}_{r}\right) + \left(\sum_{k~=~1}^{\mathcal{T}}\tau_{j,k}q_{k}\right)X - \frac{C_{j}}{V}\frac{dV}{dt} \qquad j=1,2,\dots,\mathcal{M}\\
 	\frac{dX}{dt} &=& \sum_{s~=~1}^{\mathcal{S^{+}}}v_{s}D_{s}X_{s} + \left(\mu - k_{d}\right)X - - \frac{X}{V}\frac{dV}{dt}\\
@@ -128,14 +131,14 @@ Because there is no out-flow, there is a volume change ($dV/dt > 0$), and all th
 \subsection*{Analysis of a simple fed-batch culture.}
 To better understand the dynamics of a fed-batch culture, let's simplify the general equations by assuming a Monod growth model \citep{Legout:2010aa}, a single limiting nutrient $S$, a single sterile input feed stream (s=1)
 with similar density to the working volume, no density change as a function of time, stable substrate and product, and no maintenance utilization of substrate.
-With these assumptions the general fed-batch balances reduce to:
+With these assumptions (and dropping the stream index from the dilution rate) the general fed-batch balances reduce to:
 \begin{eqnarray}\label{eqn-metabolite-batch-simple}
-	\frac{dS}{dt} &=& D_{1}S_{1} - \frac{1}{Y_{X/S}^{*}}\mu X - \frac{1}{Y_{P/S}}q_{p} X - \frac{S}{V}\frac{dV}{dt}\\
-	\frac{dP}{dt} &=& D_{1}P_{1} + q_{p}X - \frac{P}{V}\frac{dV}{dt}\\
+	\frac{dS}{dt} &=& DS_{1} - \frac{1}{Y_{X/S}^{*}}\mu X - \frac{1}{Y_{P/S}}q_{p} X - \frac{S}{V}\frac{dV}{dt}\\
+	\frac{dP}{dt} &=& DP_{1} + q_{p}X - \frac{P}{V}\frac{dV}{dt}\\
 	\frac{dX}{dt} &=& \left(\mu - k_{d}\right)X - \frac{X}{V}\frac{dV}{dt}\\
-	\frac{dV}{dt} &=& F_{1}\left(t\right)
+	\frac{dV}{dt} &=& F\left(t\right)
 \end{eqnarray}
-If we substitute the volume balance into the substrate, product and cellmass balances (and drop the stream index on the dilution rate), we arrive at the simplified system of equations:
+If we substitute the volume balance into the substrate, product and cellmass balances, we arrive at the simplified system of equations:
 \begin{eqnarray}\label{eqn-metabolite-fedbatch-simple}
 	\frac{dS}{dt} &=& D\left(S_{1} - S\right) - \frac{1}{Y_{X/S}^{*}}\mu X - \frac{1}{Y_{P/S}}q_{p} X\\
 	\frac{dP}{dt} &=& D\left(P_{1}- P\right) + q_{p}X\\
@@ -149,13 +152,48 @@ where $\mu$ is given by:
 \begin{eqnarray}
 	q_{p} = \alpha~\mu+\beta
 \end{eqnarray}
+The input volumetric flow rate function $F(t)$ is specified by the user; different functions (or parameters within typical functions such as an exponential feed function) strongly influence the performance of the culture.
 The cellmass, substrate, product and volume balances are coupled nonlinear differential equations which can be solved numerically using common packages such as MATLAB or JULIA \citep{BEKS14}.
 
-\subsubsection*{Growth associated production formation.}
-\subsubsection*{Non-growth associated production formation.}
-\subsubsection*{Mixed product formation.}
+Let's consider no product formation ($\alpha,\beta= 0$), and a common feeding function, the exponential feed function:
 
-\subsection*{How do we measure the performance of a bacterial culure?}
+\begin{equation}
+	F\left(t\right) =
+	\begin{cases}
+      0 & t\leq T_{s} \\
+      \theta_{o}\exp\left(\theta_{1}t\right) & t>T_{s}
+   \end{cases}
+\end{equation}
+Fed-batch reactors are typically run in batch mode for the first few hours for example, until the initial amount of substrate in the reactor is consumed.
+Following the start of the feed (denoted as feed-start or $T_{s}$), substrate is continuously added to the reactor and cells accumulate.
+Fed-batch reactors typically show a bi-phasic growth pattern of fast followed by slow growth (Fig\ref{fig-fedbatch-no-product}).
+Cellmass concentration decreases in fed-batch cultures both because of cell death and \textit{dilution}; after the feed start the working volume in the reactor \texite{increases} at rate proportional to feeding profile $F(t)$.
+\begin{figure*}[!h]\centering
+\psfig{file=figs/FedBatch-sims-eps-converted-to.pdf,width=0.8\textwidth}
+\caption{Fed-batch growth of simple cells in a well-mixed bioreactor as a function of time with no product formation. The x-axis denotes the fermentation tile while the y-axis denotes the cellmass [gdw/L] or substrate [mmol/L] concentration.
+The reactor is run in batch mode until the substrate is nearly exhausted, then the feed is started in the reactor. The feed-profile for this simulation is given
+by a simple exponential ramp. }\label{fig-fedbatch-no-product}
+\end{figure*}
+Growth associated products ($\alpha = 1/Y_{X/P}, \beta = 0$) are produced when cells are actively growing, as a consequence of metabolic activity.
+Typical growth associated products are organic acids such as Acetate, Lactate, Succinate or Ethanol (Fig. \ref{fig-fedbatch-gw-product}).
+Non growth associated products ($\alpha = 0, \beta \neq 0$) are produced only after cell growth has slowed.
+Typical non-growth associated products (also called secondary metabolites) are antibiotics such as Penicillin (Fig. \ref{fig-fedbatch-ngw-product}).
+
+\begin{figure*}[!h]\centering
+\psfig{file=figs/FB-GrowthAsscoaited-ChE525.pdf,width=0.8\textwidth}
+\caption{Fed-batch growth of simple cells in a well-mixed bioreactor as a function of time with growth associated product formation. The x-axis denotes the fermentation tile while the y-axis denotes the cellmass [gdw/L] or substrate [mmol/L] concentration.
+The reactor is run in batch mode until the substrate is nearly exhausted, then the feed is started in the reactor. The feed-profile for this simulation is given
+by a simple exponential ramp.}\label{fig-fedbatch-gw-product}
+\end{figure*}
+
+\begin{figure*}[!h]\centering
+\psfig{file=figs/FB-NonGrowthAssociated-ChE525.pdf,width=0.8\textwidth}
+\caption{Fed-batch growth of simple cells in a well-mixed bioreactor as a function of time with secondary product formation. The x-axis denotes the fermentation tile while the y-axis denotes the cellmass [gdw/L] or substrate [mmol/L] concentration.
+The reactor is run in batch mode until the substrate is nearly exhausted, then the feed is started in the reactor. The feed-profile for this simulation is given
+by a simple exponential ramp.}\label{fig-fedbatch-ngw-product}
+\end{figure*}
+
+\clearpage
 
 \bibliography{Notes}
 \end{document}
